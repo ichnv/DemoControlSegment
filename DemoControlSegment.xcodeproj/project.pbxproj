@@ -13,6 +13,7 @@
 		613DFC842430FFDF006C28DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 613DFC822430FFDF006C28DA /* Main.storyboard */; };
 		613DFC862430FFE4006C28DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 613DFC852430FFE4006C28DA /* Assets.xcassets */; };
 		613DFC892430FFE4006C28DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 613DFC872430FFE4006C28DA /* LaunchScreen.storyboard */; };
+		613DFC912430FFFA006C28DA /* ControlSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613DFC902430FFFA006C28DA /* ControlSegment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		613DFC852430FFE4006C28DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		613DFC882430FFE4006C28DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		613DFC8A2430FFE4006C28DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		613DFC902430FFFA006C28DA /* ControlSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlSegment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				613DFC852430FFE4006C28DA /* Assets.xcassets */,
 				613DFC872430FFE4006C28DA /* LaunchScreen.storyboard */,
 				613DFC8A2430FFE4006C28DA /* Info.plist */,
+				613DFC902430FFFA006C28DA /* ControlSegment.swift */,
 			);
 			path = DemoControlSegment;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				613DFC812430FFDF006C28DA /* ViewController.swift in Sources */,
 				613DFC7D2430FFDF006C28DA /* AppDelegate.swift in Sources */,
 				613DFC7F2430FFDF006C28DA /* SceneDelegate.swift in Sources */,
+				613DFC912430FFFA006C28DA /* ControlSegment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

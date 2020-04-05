@@ -15,23 +15,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5E-BZ-Uyf" customClass="ControlSegment" customModule="DemoControlSegment" customModuleProvider="target">
-                                <rect key="frame" x="13" y="428" width="388" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmL-FO-2T0" customClass="SegmentedPagerX" customModule="myRikkei" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="80" width="414" height="782"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="g6f-5v-M40"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="y5E-BZ-Uyf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bRI-dn-7aR"/>
-                            <constraint firstItem="y5E-BZ-Uyf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="i9e-f5-vLT"/>
-                            <constraint firstItem="y5E-BZ-Uyf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="13" id="mf4-uM-p6V"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="y5E-BZ-Uyf" secondAttribute="trailing" constant="13" id="yIg-Up-MDH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CmL-FO-2T0" secondAttribute="trailing" id="Xr7-LF-rlp"/>
+                            <constraint firstItem="CmL-FO-2T0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="g2Q-qY-5mI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CmL-FO-2T0" secondAttribute="bottom" id="muC-Bs-dWx"/>
+                            <constraint firstItem="CmL-FO-2T0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="80" id="wpB-Oq-DSV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="segmentedPager" destination="CmL-FO-2T0" id="r9n-Kj-bbX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

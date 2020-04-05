@@ -43,7 +43,7 @@ public struct SegmentStyle {
         }
     }
     
-    private let scrollView: UIScrollView = {
+    private let _scrollView: UIScrollView = {
         let view = UIScrollView()
         view.showsHorizontalScrollIndicator = false
         view.bounces = true
@@ -55,6 +55,12 @@ public struct SegmentStyle {
         return view
     }()
     
+    //    // A scroll view to observe in order to move the indicator.
+    @IBOutlet public weak var scrollView: UIScrollView? {
+        willSet { scrollView?.removeObserver(self, forKeyPath: keyPath, context: &context) }
+        didSet { scrollView?.addObserver(self, forKeyPath: keyPath, context: &context) }
+    }
+    
     public var style: SegmentStyle {
         didSet {
             setupDefaultLayout()
@@ -64,9 +70,9 @@ public struct SegmentStyle {
     private let selectContent =  UIView()
     
     private var indicator: UIView = {
-        let ind = UIView()
-        ind.layer.masksToBounds = true
-        return ind
+        let view = UIView()
+        view.layer.masksToBounds = true
+        return view
     }()
     
     private let selectedLabelsMaskView: UIView = {
@@ -78,6 +84,15 @@ public struct SegmentStyle {
     
     private var titleLabels: [UILabel] = []
     var selectIndex = 0
+    
+    public var progress: CGFloat = 0 {
+        didSet { layoutIndicator() }
+    }
+    
+    private var context: UInt8 = 1
+    private let keyPath = NSStringFromSelector(#selector(getter: UIScrollView.contentOffset))
+    
+    public var valueChange: ((Int) -> Void)?
     
     // MARK: - life cycle
     public convenience override init(frame: CGRect) {
@@ -98,17 +113,76 @@ public struct SegmentStyle {
         setupControl()
     }
     
+    deinit {
+        guard let scrollView = scrollView else { return }
+        scrollView.removeObserver(self, forKeyPath: keyPath, context: &context)
+    }
+    
     private func setupControl() {
-        addSubview(UIView())
-        addSubview(scrollView)
-        titles = ["Mới","Bán Chạy", "Đồ Công Nghệ", "Góc Ăn uống","Thời Trang","Mỹ Phẩm","Sách","Đồ gia dụng","Khác"]
+        addSubview(_scrollView)
         setupDefaultLayout()
+    }
+    
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &self.context {
+            if let scrollView = scrollView, scrollView.isDragging || scrollView.isDecelerating {
+                let offset = scrollView.contentOffset.x
+                let bounds = scrollView.bounds.width
+                let page = CGFloat(self.selectIndex)
+               // print("offset",offset)
+                let contentOffsetX = offset - bounds + page * bounds
+                progress = CGFloat(contentOffsetX / scrollView.frame.size.width)
+            }
+            
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
+    }
+    
+    private func layoutIndicator() {
+        guard !titleLabels.isEmpty else { return }
+        
+        let index = min(Int(progress), titleLabels.count - 1)
+        let current = titleLabels[index]
+        
+        var frame = CGRect.zero
+        frame.size.height = style.indicatorHeight
+        
+        // Compute indicator's position
+        let y: CGFloat = ( bounds.height - frame.size.height)/2
+        var x: CGFloat = progress < 0 ? 0 : current.frame.size.width * (progress - CGFloat(index))
+        
+        for i in 0..<index {
+            x += titleLabels[i].frame.size.width + style.titleMargin
+        }
+        
+        x += style.titleMargin
+        frame.origin.x = x
+        frame.origin.y = y
+        
+        // Compute indicator's width
+        if progress < 0 {
+            // Bounce left, (progress + 1) so that the width is always greater than 0
+            frame.size.width = current.frame.size.width * (progress + 1)
+        } else if index + 1 < titleLabels.count {
+            let next = titleLabels[index + 1]
+            let dx = (next.frame.size.width - current.frame.size.width) * (progress - CGFloat(index))
+            frame.size.width = current.frame.size.width + dx
+        } else {
+            //bounce right
+            frame.size.width = current.frame.size.width * (CGFloat(titleLabels.count) - progress)
+        }
+        
+        setIndicatorFrame(frame)
+        let offSetX = min(max(0, current.center.x - bounds.width / 2),
+                          max(0, _scrollView.contentSize.width - bounds.width))
+        _scrollView.setContentOffset(CGPoint(x: offSetX, y: 0), animated: true)
     }
     
     private func setupDefaultLayout() {
         guard !titles.isEmpty  else { return }
         //
-        scrollView.frame = bounds
+        _scrollView.frame = bounds
         selectContent.frame = bounds
         selectContent.layer.mask = selectedLabelsMaskView.layer
         selectedLabelsMaskView.isUserInteractionEnabled = true
@@ -138,19 +212,19 @@ public struct SegmentStyle {
             let frontLabel = makeLabel(index: index, text: item, rect: rect, color: style.selectedTitleColor)
             
             titleLabels.append(backLabel)
-            scrollView.addSubview(backLabel)
+            _scrollView.addSubview(backLabel)
             selectContent.addSubview(frontLabel)
             
             if index == titles.count - 1 {
-                scrollView.contentSize.width = rect.maxX + style.titleMargin
+                _scrollView.contentSize.width = rect.maxX + style.titleMargin
                 selectContent.frame.size.width = rect.maxX + style.titleMargin
             }
         }
         
         // Set Cover
         indicator.backgroundColor = style.indicatorColor
-        scrollView.addSubview(indicator)
-        scrollView.addSubview(selectContent)
+        _scrollView.addSubview(indicator)
+        _scrollView.addSubview(selectContent)
         
         let coverW = titleLabels[selectIndex].frame.size.width
         let coverH: CGFloat = style.indicatorHeight
@@ -170,7 +244,7 @@ public struct SegmentStyle {
     
     // Target action
     @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
-        let x = gesture.location(in: self).x + scrollView.contentOffset.x
+        let x = gesture.location(in: self).x + _scrollView.contentOffset.x
         for (i, label) in titleLabels.enumerated() {
             if x >= label.frame.minX && x <= label.frame.maxX {
                 setSelectIndex(index: i)
@@ -185,8 +259,8 @@ public struct SegmentStyle {
         
         let currentLabel = titleLabels[index]
         let offSetX = min(max(0, currentLabel.center.x - bounds.width / 2),
-                          max(0, scrollView.contentSize.width - bounds.width))
-        scrollView.setContentOffset(CGPoint(x: offSetX, y: 0), animated: true)
+                          max(0, _scrollView.contentSize.width - bounds.width))
+        _scrollView.setContentOffset(CGPoint(x: offSetX, y: 0), animated: true)
         
         UIView.animate(withDuration: 0.3, animations: {
             var rect = self.indicator.frame
@@ -196,6 +270,7 @@ public struct SegmentStyle {
         })
         
         selectIndex = index
+        valueChange?(index)
     }
     
     private func setIndicatorFrame(_ frame: CGRect) {

@@ -14,6 +14,12 @@
 		613DFC862430FFE4006C28DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 613DFC852430FFE4006C28DA /* Assets.xcassets */; };
 		613DFC892430FFE4006C28DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 613DFC872430FFE4006C28DA /* LaunchScreen.storyboard */; };
 		613DFC912430FFFA006C28DA /* ControlSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613DFC902430FFFA006C28DA /* ControlSegment.swift */; };
+		61F018D1243A27850079B7A9 /* SegmentedPagerX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F018D0243A27850079B7A9 /* SegmentedPagerX.swift */; };
+		61F018D4243A27B30079B7A9 /* SegmentedPagerX.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61F018D3243A27B30079B7A9 /* SegmentedPagerX.xib */; };
+		61F018DA243A2B2D0079B7A9 /* UiView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F018D9243A2B2D0079B7A9 /* UiView+Extension.swift */; };
+		61F018DE243A2BE90079B7A9 /* SegmentedPagerXDataSource+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F018DD243A2BE90079B7A9 /* SegmentedPagerXDataSource+Delegate.swift */; };
+		61F018E2243A2EDB0079B7A9 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F018E0243A2EDB0079B7A9 /* DemoViewController.swift */; };
+		61F018E3243A2EDB0079B7A9 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61F018E1243A2EDB0079B7A9 /* DemoViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,12 @@
 		613DFC882430FFE4006C28DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		613DFC8A2430FFE4006C28DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		613DFC902430FFFA006C28DA /* ControlSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlSegment.swift; sourceTree = "<group>"; };
+		61F018D0243A27850079B7A9 /* SegmentedPagerX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPagerX.swift; sourceTree = "<group>"; };
+		61F018D3243A27B30079B7A9 /* SegmentedPagerX.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedPagerX.xib; sourceTree = "<group>"; };
+		61F018D9243A2B2D0079B7A9 /* UiView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiView+Extension.swift"; sourceTree = "<group>"; };
+		61F018DD243A2BE90079B7A9 /* SegmentedPagerXDataSource+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedPagerXDataSource+Delegate.swift"; sourceTree = "<group>"; };
+		61F018E0243A2EDB0079B7A9 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		61F018E1243A2EDB0079B7A9 /* DemoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemoViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,8 @@
 		613DFC7B2430FFDF006C28DA /* DemoControlSegment */ = {
 			isa = PBXGroup;
 			children = (
+				61F018DF243A2DD10079B7A9 /* Source */,
+				61F018D8243A2B0D0079B7A9 /* Extension */,
 				613DFC7C2430FFDF006C28DA /* AppDelegate.swift */,
 				613DFC7E2430FFDF006C28DA /* SceneDelegate.swift */,
 				613DFC802430FFDF006C28DA /* ViewController.swift */,
@@ -65,9 +79,45 @@
 				613DFC852430FFE4006C28DA /* Assets.xcassets */,
 				613DFC872430FFE4006C28DA /* LaunchScreen.storyboard */,
 				613DFC8A2430FFE4006C28DA /* Info.plist */,
-				613DFC902430FFFA006C28DA /* ControlSegment.swift */,
+				61F018E0243A2EDB0079B7A9 /* DemoViewController.swift */,
+				61F018E1243A2EDB0079B7A9 /* DemoViewController.xib */,
 			);
 			path = DemoControlSegment;
+			sourceTree = "<group>";
+		};
+		61F018D2243A27A30079B7A9 /* SegmentedPagerX */ = {
+			isa = PBXGroup;
+			children = (
+				61F018DC243A2BBF0079B7A9 /* Protocol */,
+				613DFC902430FFFA006C28DA /* ControlSegment.swift */,
+				61F018D0243A27850079B7A9 /* SegmentedPagerX.swift */,
+				61F018D3243A27B30079B7A9 /* SegmentedPagerX.xib */,
+			);
+			path = SegmentedPagerX;
+			sourceTree = "<group>";
+		};
+		61F018D8243A2B0D0079B7A9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				61F018D9243A2B2D0079B7A9 /* UiView+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		61F018DC243A2BBF0079B7A9 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				61F018DD243A2BE90079B7A9 /* SegmentedPagerXDataSource+Delegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		61F018DF243A2DD10079B7A9 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				61F018D2243A27A30079B7A9 /* SegmentedPagerX */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,6 +181,8 @@
 				613DFC892430FFE4006C28DA /* LaunchScreen.storyboard in Resources */,
 				613DFC862430FFE4006C28DA /* Assets.xcassets in Resources */,
 				613DFC842430FFDF006C28DA /* Main.storyboard in Resources */,
+				61F018D4243A27B30079B7A9 /* SegmentedPagerX.xib in Resources */,
+				61F018E3243A2EDB0079B7A9 /* DemoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +197,10 @@
 				613DFC7D2430FFDF006C28DA /* AppDelegate.swift in Sources */,
 				613DFC7F2430FFDF006C28DA /* SceneDelegate.swift in Sources */,
 				613DFC912430FFFA006C28DA /* ControlSegment.swift in Sources */,
+				61F018DA243A2B2D0079B7A9 /* UiView+Extension.swift in Sources */,
+				61F018DE243A2BE90079B7A9 /* SegmentedPagerXDataSource+Delegate.swift in Sources */,
+				61F018D1243A27850079B7A9 /* SegmentedPagerX.swift in Sources */,
+				61F018E2243A2EDB0079B7A9 /* DemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
